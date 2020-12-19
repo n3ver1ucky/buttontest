@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package buttonstest;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class ButtonsTest extends JFrame {
+  private static final long serialVersionUID = 1L;
+
+    private JToggleButton button;
+    private JPanel panelRadio, panelCheck;
+    
+    public ButtonsTest()
+    {
+        super("Кнопки управления");
+        setDefaultCloseOperation( EXIT_ON_CLOSE );
+        Container container = getContentPane();
+        container.setLayout(new FlowLayout());
+        button = new JToggleButton("Нажмите", false);
+        button.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                String text = (button.isSelected()) ? "Нажмите снова" : "Нажмите";
+                button.setText(text);
+                panelRadio.setVisible(!button.isSelected());
+                panelCheck.setVisible( button.isSelected());
+            }
+        });
+        panelRadio = new JPanel(new GridLayout(0, 1, 0, 5));
+        panelRadio.setBorder(BorderFactory.createTitledBorder("Блюда"));
+        String[] names1 = { "Борщ", "Щи", "Котлеты","Пюре","Салат" };
+        ButtonGroup bg1 = new ButtonGroup();
+        for (int i = 0; i < names1.length; i++) {
+            JRadioButton radio = new JRadioButton(names1[i]);
+            panelRadio.add(radio);
+            bg1.add(radio);
+        }
+        panelCheck = new JPanel(new GridLayout(0, 1, 0, 5));
+        panelCheck.setBorder(BorderFactory.createTitledBorder("Напитки"));
+        String[] names2 = { "Лимонад", "Компот", "Вода", "Чай", "Сок"};
+        for (int i = 0; i < names2.length; i++) {
+            JCheckBox check = new JCheckBox(names2[i]);
+            panelCheck.add(check);        
+        }
+        panelCheck.setVisible(false);
+        container.add(button);
+        container.add(panelRadio);
+        container.add(panelCheck);
+        setSize(300, 250);
+        setVisible(true);
+    } 
+}
